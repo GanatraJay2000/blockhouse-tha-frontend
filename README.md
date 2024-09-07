@@ -13,7 +13,7 @@ This is a simple dashboard built with Next.js that displays four charts (Candles
 
    ```bash
    git clone https://github.com/GanatraJay2000/blockhouse-tha-frontend.git
-   cd yourproject/frontend
+   cd blockhouse-tha-frontend
    ```
 
 2. **Install dependencies**:
