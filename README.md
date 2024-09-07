@@ -12,7 +12,7 @@ This is a simple dashboard built with Next.js that displays four charts (Candles
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/GanatraJay2000/blockhouse-tha-frontend.git
    cd yourproject/frontend
    ```
 
