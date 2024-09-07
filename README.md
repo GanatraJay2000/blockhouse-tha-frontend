@@ -1,40 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js Frontend Application
 
-## Getting Started
+This is a simple dashboard built with Next.js that displays four charts (Candlestick, Line, Bar, Pie) using data fetched from a Django API backend.
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js
+- npm or yarn
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup Instructions
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+   ```bash
+   git clone https://github.com/yourusername/yourproject.git
+   cd yourproject/frontend
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+2. **Install dependencies**:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. **Start the development server**:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   The server will start on `http://localhost:3000`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Functionality
 
-## Deploy on Vercel
+- **Candlestick Chart**: Displays stock market data (e.g., open, close, high, low prices) fetched from `/api/candlestick-data/`.
+- **Line Chart**: Displays time-series data fetched from `/api/line-chart-data/`.
+- **Bar Chart**: Displays category-based data fetched from `/api/bar-chart-data/`.
+- **Pie Chart**: Displays proportional data fetched from `/api/pie-chart-data/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Example Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Dashboard Page**: Contains all four charts and dynamically fetches the data from the Django API.
+
+## Tools and Libraries Used
+
+- **Next.js**: React framework with server-side rendering.
+- **shadcn-ui - Recharts / ECharts**: Charting libraries used for rendering the charts.
+- **FETCH**: Used for fetching data from the Django API.
+
+## Thought Process
+
+The Next.js frontend fetches data from the Django backend API using Fetch API and renders the data dynamically into charts. The frontend is responsive and modular, making it easy to extend or replace components if needed. The design is kept minimal, focusing on clear data representation.
+
+## Instructions
+
+1. Ensure the Django backend is running on `http://127.0.0.1:8000`.
+2. Start the Next.js app with `npm run dev`.
+3. Access the dashboard at `http://localhost:3000/` to see the charts populated with data from the Django API.
+
+## Future Scope
+
+1. **Use a Singular Axios Instance**:
+
+   - I plan to refactor the API calls to use a centralized Axios instance with predefined settings like base URL, headers, and interceptors. This will result in cleaner, more maintainable code and ensure consistent error handling across the application.
+
+2. **Work on the Theme Context**:
+
+   - I aim to implement a global theme context to allow dynamic switching between light and dark themes. Using React’s Context API or a state management tool, I'll ensure the theme persists across the entire application for a better user experience.
+
+3. **Dockerize**:
+
+   - I plan to create a `Dockerfile` for the frontend to simplify setup and deployment. Dockerizing the application will ensure consistency across different environments and make the project easier to manage and scale.
+
+4. **Unit Testing Using Jest**:
+   - I intend to introduce unit testing for React components using Jest and React Testing Library. These tests will help ensure that each component behaves as expected, handling various states and user interactions, improving the overall code quality.
