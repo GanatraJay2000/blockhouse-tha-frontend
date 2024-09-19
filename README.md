@@ -2,6 +2,9 @@
 
 This is a simple dashboard built with Next.js that displays four charts (Candlestick, Line, Bar, Pie) using data fetched from a Django API backend.
 
+[!TIP]
+Extra Features in another branch.
+
 ## Requirements
 
 - Node.js
