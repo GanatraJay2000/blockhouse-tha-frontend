@@ -21,3 +21,22 @@ export type TBarChart = {
   labels: string;
   data: number;
 }[];
+
+export type TChartData = {
+  candlestick_chart: TCandlestickChart;
+  line_chart: TLineChart;
+  pie_chart: TPieChart;
+  bar_chart: TBarChart;
+};
+
+export type TBaseChart = {
+  labels: string[];
+  data: number[];
+};
+
+export type TBaseChartApiData = {
+  candlestick_chart: TCandlestickChart;
+  line_chart: TBaseChart;
+  bar_chart: TBaseChart;
+  pie_chart: TBaseChart;
+};

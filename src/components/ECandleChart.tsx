@@ -1,27 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 import { cn } from "@/lib/utils";
 import { TCandlestickChart } from "@/lib/types/chartDataTypes";
 
-function ECandleChart({ className = "" }: { className?: string }) {
-  const [chartData, setChartData] = useState<TCandlestickChart | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/candlestick-data/"
-        );
-        const data = await response.json();
-        setChartData(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+function ECandleChart({
+  chartData,
+  className = "",
+}: {
+  chartData: TCandlestickChart;
+  className?: string;
+}) {
   const chartRef = useRef<HTMLDivElement>(null);
 
   function splitData(rawData: TCandlestickChart) {

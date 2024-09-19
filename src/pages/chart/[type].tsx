@@ -5,16 +5,27 @@ import LineChart from "@/components/LineChart";
 import PieChart from "@/components/PieChart";
 import { Button } from "@/components/ui/button";
 import { geistMono } from "@/lib/fonts";
+import {
+  TBaseChart,
+  TBaseChartApiData,
+  TChartData,
+  TPieChart,
+} from "@/lib/types/chartDataTypes";
 import { cn } from "@/lib/utils";
+import { GetServerSideProps, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Chart() {
+export default function Chart({
+  chartData,
+}: InferGetStaticPropsType<typeof getServerSideProps>) {
   const charts: { [key: string]: JSX.Element } = {
-    "bar-chart": <BarChart />,
-    "line-chart": <LineChart />,
-    "pie-chart": <PieChart />,
-    "candlestick-chart": <ECandleChart />,
+    "bar-chart": <BarChart chartData={chartData["bar_chart"]} />,
+    "line-chart": <LineChart chartData={chartData["line_chart"]} />,
+    "pie-chart": <PieChart chartData={chartData["pie_chart"]} />,
+    "candlestick-chart": (
+      <ECandleChart chartData={chartData["candlestick_chart"]} />
+    ),
   };
 
   const router = useRouter();
@@ -44,3 +55,38 @@ export default function Chart() {
     </>
   );
 }
+
+export const getServerSideProps = (async () => {
+  const transformData = (data: TBaseChartApiData) => {
+    const transformLineOrBarData = (rawData: TBaseChart) => {
+      return rawData.labels.map((label, index) => ({
+        labels: label,
+        data: rawData.data[index],
+      }));
+    };
+
+    const transformPieData = (rawData: TBaseChart): TPieChart => {
+      return rawData.labels.map((label, index) => ({
+        labels: label,
+        data: rawData.data[index],
+        fill: `hsl(var(--chart-${index + 1}))`,
+      }));
+    };
+
+    return {
+      candlestick_chart: data.candlestick_chart,
+      line_chart: transformLineOrBarData(data.line_chart),
+      bar_chart: transformLineOrBarData(data.bar_chart),
+      pie_chart: transformPieData(data.pie_chart),
+    };
+  };
+
+  const response = await fetch("http://127.0.0.1:8000/api/all-data/");
+  const data = await response.json();
+  const chartData = transformData(data);
+
+  // Pass data to the page via props
+  return { props: { chartData } };
+}) satisfies GetServerSideProps<{
+  chartData: TChartData;
+}>;

@@ -6,36 +6,15 @@ import {
 } from "@/components/ui/chart";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import { TLineChart } from "@/lib/types/chartDataTypes";
 
-function CustomLineChart({ className = "" }: { className?: string }) {
-  const [chartData, setChartData] = useState<TLineChart | null>(null);
-
-  useEffect(() => {
-    const transformData = (rawData: { labels: string[]; data: number[] }) => {
-      const lineChartData = rawData.labels.map((label, index) => ({
-        labels: label,
-        data: rawData.data[index],
-      }));
-      setChartData(lineChartData);
-    };
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/line-chart-data/"
-        );
-        const data = await response.json();
-        transformData(data);
-        // process the data as needed
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+function CustomLineChart({
+  chartData,
+  className = "",
+}: {
+  chartData: TLineChart;
+  className?: string;
+}) {
   return (
     chartData && (
       <ChartContainer
