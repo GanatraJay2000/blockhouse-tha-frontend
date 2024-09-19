@@ -9,13 +9,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const _candlestickChartData = [
-  { x: "2017-10-24", open: 20, close: 34, low: 10, high: 38 },
-  { x: "2017-10-25", open: 40, close: 35, low: 30, high: 50 },
-  { x: "2017-10-26", open: 31, close: 38, low: 33, high: 44 },
-  { x: "2017-10-27", open: 38, close: 15, low: 5, high: 42 },
-];
-
 export default function Chart() {
   const charts: { [key: string]: JSX.Element } = {
     "bar-chart": <BarChart />,
@@ -34,7 +27,7 @@ export default function Chart() {
       </Button>
       <div
         className={cn(
-          "min-h-screen bg-gray-100 flex w-full flex-col justify-center items-center",
+          "min-h-screen bg-gray-100 dark:bg-slate-900 flex w-full flex-col justify-center items-center",
           geistMono.className
         )}
       >

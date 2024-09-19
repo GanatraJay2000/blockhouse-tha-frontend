@@ -11,11 +11,11 @@ export default function Home() {
 
   return (
     <div
-      className={`${geistMono.className} py-10 bg-slate-100 w-full min-h-screen flex flex-col md:flex-row items-center justify-center gap-10`}
+      className={`${geistMono.className} py-10 bg-slate-100 dark:bg-slate-900 w-full min-h-screen flex flex-col md:flex-row items-center justify-center gap-10`}
     >
       {nav.map((item, index) => (
         <Link key={index} href={item.href} className="w-64">
-          <div className="h-40 w-full bg-white border shadow-sm rounded-xl flex justify-center items-center">
+          <div className="h-40 w-full bg-white dark:bg-slate-950 border shadow-sm rounded-xl flex justify-center items-center">
             {item.label}
           </div>
         </Link>
