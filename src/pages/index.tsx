@@ -1,5 +1,8 @@
+import { useToast } from "@/hooks/use-toast";
 import { geistMono } from "@/lib/fonts";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
   const nav = [
@@ -8,6 +11,17 @@ export default function Home() {
     { href: "/chart/bar-chart", label: "Bar Chart" },
     { href: "/chart/pie-chart", label: "Pie Chart" },
   ];
+  const { toast } = useToast();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.query.error)
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "Server API Data Fetching Failed!",
+        variant: "destructive",
+      });
+  }, [router]);
 
   return (
     <div

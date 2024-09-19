@@ -19,6 +19,9 @@ import { useRouter } from "next/router";
 export default function Chart({
   chartData,
 }: InferGetStaticPropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+  const chartType = router.query.type as string;
+
   const charts: { [key: string]: JSX.Element } = {
     "bar-chart": <BarChart chartData={chartData["bar_chart"]} />,
     "line-chart": <LineChart chartData={chartData["line_chart"]} />,
@@ -27,9 +30,6 @@ export default function Chart({
       <ECandleChart chartData={chartData["candlestick_chart"]} />
     ),
   };
-
-  const router = useRouter();
-  const chartType = router.query.type as string;
 
   return (
     <>
@@ -81,12 +81,21 @@ export const getServerSideProps = (async () => {
     };
   };
 
-  const response = await fetch("http://127.0.0.1:8000/api/all-data/");
-  const data = await response.json();
-  const chartData = transformData(data);
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/all-data/");
+    const data = await response.json();
+    const chartData = transformData(data);
 
-  // Pass data to the page via props
-  return { props: { chartData } };
+    // Pass data to the page via props
+    return { props: { chartData } };
+  } catch (_error) {
+    return {
+      redirect: {
+        destination: "/?error=true",
+        permanent: false,
+      },
+    };
+  }
 }) satisfies GetServerSideProps<{
-  chartData: TChartData;
+  chartData?: TChartData;
 }>;
